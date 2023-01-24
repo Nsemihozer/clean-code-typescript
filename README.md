@@ -285,27 +285,28 @@ class Projector {
 
 ## Fonksiyonlar
 
-### Function arguments (2 or fewer ideally)
+### Fonksiyon argümanları 2 ve ya daha az olmalı
 
-Limiting the number of function parameters is incredibly important because it makes testing your function easier.
-Having more than three leads to a combinatorial explosion where you have to test tons of different cases with each separate argument.  
+Fonksiyon parametrelerinin sayısını sınırlamak, fonksiyonu test etmeyi kolaylaştırdığından inanılmaz derecede önemlidir.
+Üçten fazlasına sahip olmak, her bir ayrı argümanla tonlarca farklı durumu test etmeniz gereken bir kombinasyonel patlamaya yol açar.  
 
-One or two arguments is the ideal case, and three should be avoided if possible. Anything more than that should be consolidated.
-Usually, if you have more than two arguments then your function is trying to do too much.
-In cases where it's not, most of the time a higher-level object will suffice as an argument.  
+Bir veya iki argüman ideal durumdur ve mümkünse üçünden kaçınılmalıdır. Bundan daha fazlası konsolide edilmelidir.
+Genellikle, ikiden fazla argümanınız varsa, fonksiyonunuz çok fazla şey yapmaya çalışıyor demektir.
+Olmadığı durumlarda, çoğu zaman daha yüksek seviyeli bir nesne argüman olarak yeterli olacaktır.
 
-Consider using object literals if you are finding yourself needing a lot of arguments.  
+Çok fazla argümana ihtiyaç duyuyorsanız, nesne değişmezlerini kullanmayı düşünün.  
 
-To make it obvious what properties the function expects, you can use the [destructuring](https://basarat.gitbook.io/typescript/future-javascript/destructuring) syntax.
-This has a few advantages:
+Fonksiyonun hangi özellikleri beklediğini açıkça belirtmek için, [yapıyı bozan](https://basarat.gitbook.io/typescript/future-javascript/destructuring)  sözdizimini kullanabilirsiniz.
 
-1. When someone looks at the function signature, it's immediately clear what properties are being used.
+Bunun birkaç avantajı vardır:
 
-2. It can be used to simulate named parameters.
+1. Birisi fonksiyon imzasına baktığında, hangi özelliklerin kullanıldığı hemen anlaşılır.
 
-3. Destructuring also clones the specified primitive values of the argument object passed into the function. This can help prevent side effects. Note: objects and arrays that are destructured from the argument object are NOT cloned.
+2. Adlandırılmış parametreleri simüle etmek için kullanılabilir.
 
-4. TypeScript warns you about unused properties, which would be impossible without destructuring.
+3. Yıkım, fonksiyona iletilen bağımsız değişken nesnesinin belirtilen ilkel değerlerini de klonlar. Bu, yan etkileri önlemeye yardımcı olabilir. Not: argüman nesnesinden alınan yıkılmış nesneler ve diziler klonlanMAZ.
+
+4. TypeScript, sizi kullanılmayan özellikler hakkında uyarır, bu da yapıyı bozmadan imkansız olur.
 
 **Kötü:**
 
@@ -332,7 +333,7 @@ createMenu({
 });
 ```
 
-You can further improve readability by using [type aliases](https://www.typescriptlang.org/docs/handbook/advanced-types.html#type-aliases):
+[tür takma adları](https://www.typescriptlang.org/docs/handbook/advanced-types.html#type-aliases) kullanarak okunabilirliği daha da artırabilirsiniz:
 
 ```ts
 
@@ -352,9 +353,9 @@ createMenu({
 
 **[⬆ en yukarı](#içindekiler)**
 
-### Functions should do one thing
+### Fonksyionlar tek bir iş yapmalıdır
 
-This is by far the most important rule in software engineering. When functions do more than one thing, they are harder to compose, test, and reason about. When you can isolate a function to just one action, it can be refactored easily and your code will read much cleaner. If you take nothing else away from this guide other than this, you'll be ahead of many developers.
+Bu, yazılım mühendisliğinin açık ara en önemli kuralıdır. Fonksiyonlar birden fazla şey yaptığında bunları oluşturmak, test etmek ve akıl yürütmek daha zordur. Bir fonksiyonu tek bir eyleme ayırabildiğinizde, kolayca yeniden düzenlenebilir ve kodunuz çok daha temiz okunur. Bu kılavuzdan bunun dışında hiçbir şey çıkarmazsanı dahi birçok geliştiriciden önde olursunuz.
 
 **Kötü:**
 
@@ -384,7 +385,7 @@ function isActiveClient(client: Client) {
 
 **[⬆ en yukarı](#içindekiler)**
 
-### Function names should say what they do
+### Fonksiyon adları ne yaptıklarını söylemelidir
 
 **Kötü:**
 
@@ -412,9 +413,9 @@ addMonthToDate(date, 1);
 
 **[⬆ en yukarı](#içindekiler)**
 
-### Functions should only be one level of abstraction
+### Fonksiyonlar yalnızca bir soyutlama düzeyi olmalıdır
 
-When you have more than one level of abstraction your function is usually doing too much. Splitting up functions leads to reusability and easier testing.
+Birden fazla soyutlama seviyeniz olduğunda, fonksiyonunuz genellikle çok fazla şey yapıyor. Fonksiyonları bölmek, yeniden kullanılabilirliğe ve daha kolay testlere yol açar.
 
 **Kötü:**
 
@@ -480,18 +481,18 @@ function parse(tokens: Token[]): SyntaxTree {
 
 **[⬆ en yukarı](#içindekiler)**
 
-### Remove duplicate code
+### Yinelenen kodu kaldır
 
-Do your absolute best to avoid duplicate code.
-Duplicate code is bad because it means that there's more than one place to alter something if you need to change some logic.  
+Yinelenen koddan kaçınmak için elinizden gelenin en iyisini yapın.
+Yinelenen kod kötüdür, çünkü bazı mantığı değiştirmeniz gerekirse, bir şeyi değiştirmek için birden fazla yer olduğu anlamına gelir.
 
-Imagine if you run a restaurant and you keep track of your inventory: all your tomatoes, onions, garlic, spices, etc.
-If you have multiple lists that you keep this on, then all have to be updated when you serve a dish with tomatoes in them.
-If you only have one list, there's only one place to update!  
+Bir restoran işlettiğinizi ve envanterinizin kaydını tuttuğunuzu hayal edin: tüm domatesleriniz, soğanlarınız, sarımsaklarınız, baharatlarınız vs.
+Bunu tuttuğunuz birden fazla listeniz varsa, içinde domates bulunan bir yemek servis ettiğinizde hepsinin güncellenmesi gerekir.
+Yalnızca bir listeniz varsa, güncellenecek tek bir yer vardır!
 
-Oftentimes you have duplicate code because you have two or more slightly different things, that share a lot in common, but their differences force you to have two or more separate functions that do much of the same things. Removing duplicate code means creating an abstraction that can handle this set of different things with just one function/module/class.  
+Çoğu zaman yinelenen kodunuz olur çünkü birçok ortak noktayı paylaşan iki veya daha fazla farklı şeye sahipsiniz, ancak farklılıkları sizi aynı şeylerin çoğunu yapan iki veya daha fazla ayrı işleve sahip olmaya zorlar. Yinelenen kodu kaldırmak, yalnızca bir işlev/modül/sınıf ile bu farklı şeyler kümesini işleyebilecek bir soyutlama oluşturmak anlamına gelir.
 
-Getting the abstraction right is critical, that's why you should follow the [SOLID](#solid) principles. Bad abstractions can be worse than duplicate code, so be careful! Having said this, if you can make a good abstraction, do it! Don't repeat yourself, otherwise, you'll find yourself updating multiple places anytime you want to change one thing.
+Soyutlamayı doğru yapmak çok önemlidir, bu yüzden [SOLID](#solid) ilkelerini izlemelisiniz.Kötü soyutlamalar, yinelenen koddan daha kötü olabilir, bu yüzden dikkatli olun! Bunu söyledikten sonra, eğer iyi bir soyutlama yapabilirsen yap! Kendinizi tekrar etmeyin, aksi takdirde, bir şeyi değiştirmek istediğinizde kendinizi birden fazla yeri güncellerken bulacaksınız.
 
 **Kötü:**
 
@@ -567,7 +568,7 @@ function showEmployeeList(employee: (Developer | Manager)[]) {
 }
 ```
 
-You may also consider adding a union type, or common parent class if it suits your abstraction.
+Soyutlamanıza uygunsa bir birleşim türü veya ortak üst sınıf eklemeyi de düşünebilirsiniz.
 ```ts
 class Developer {
   // ...
@@ -586,11 +587,11 @@ function showEmployeeList(employee: Employee[]) {
 
 ```
 
-You should be critical about code duplication. Sometimes there is a tradeoff between duplicated code and increased complexity by introducing unnecessary abstraction. When two implementations from two different modules look similar but live in different domains, duplication might be acceptable and preferred over extracting the common code. The extracted common code, in this case, introduces an indirect dependency between the two modules.
+Kod çoğaltma konusunda dikkatli olmalısınız. Bazen, gereksiz soyutlama getirerek, yinelenen kod ile artan karmaşıklık arasında bir denge vardır. İki farklı modülden iki uygulama benzer göründüğünde ancak farklı etki alanlarında yaşadığında, çoğaltma kabul edilebilir ve ortak kodu ayıklamak yerine tercih edilebilir. Ayıklanan ortak kod, bu durumda, iki modül arasında dolaylı bir bağımlılık getirir.
 
 **[⬆ en yukarı](#içindekiler)**
 
-### Set default objects with Object.assign or destructuring
+### Object.assign veya yok etme ile varsayılan nesneleri ayarlayın
 
 **Kötü:**
 
@@ -628,7 +629,7 @@ function createMenu(config: MenuConfig) {
 createMenu({ body: 'Bar' });
 ```
 
-Or, you could use the spread operator:
+Ya da 3 nokta operatörünü kullanabilirsiniz:
 
 ```ts
 function createMenu(config: MenuConfig) {
@@ -643,10 +644,10 @@ function createMenu(config: MenuConfig) {
   // ...
 }
 ```
-The spread operator and `Object.assign()` are very similar.
-The main difference is that spreading defines new properties, while `Object.assign()` sets them. More detailed, the difference is explained in [this](https://stackoverflow.com/questions/32925460/object-spread-vs-object-assign) thread.
+3 nokta operatörü ve `Object.assign()` çok benzerdir.
+Ana farklılık 3 nokta yeni özellikler tanımlarken `Object.assign()` ise olanları belirler. Daha fazla açıklamayı [buradan](https://stackoverflow.com/questions/32925460/object-spread-vs-object-assign)) bulabilirsiniz
 
-Alternatively, you can use destructuring with default values:
+Alternatif olarak, yok etmeyi varsayılan değerlerle kullanabilirsiniz:
 
 ```ts
 type MenuConfig = { title?: string, body?: string, buttonText?: string, cancellable?: boolean };
@@ -658,15 +659,15 @@ function createMenu({ title = 'Foo', body = 'Bar', buttonText = 'Baz', cancellab
 createMenu({ body: 'Bar' });
 ```
 
-To avoid any side effects and unexpected behavior by passing in explicitly the `undefined` or `null` value, you can tell the TypeScript compiler to not allow it.
-See [`--strictNullChecks`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html#--strictnullchecks) option in TypeScript.
+Açıkça `undefined` veya `null` değerini ileterek herhangi bir yan etkiden ve beklenmeyen davranıştan kaçınmak için, TypeScript derleyicisine buna izin vermemesini söyleyebilirsiniz.
+[`--strictNullChecks`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html#--strictnullchecks)
 
 **[⬆ en yukarı](#içindekiler)**
 
-### Don't use flags as function parameters
+### İşaretleri fonksiyon parametresi olarak kullanmayın
 
-Flags tell your user that this function does more than one thing.
-Functions should do one thing. Split out your functions if they are following different code paths based on a boolean.
+İşaretler, kullanıcınıza bu işlevin birden fazla şey yaptığını söyler.
+Fonksiyonlar tek bir şey yapmalıdır. Bir mantıksal değere dayalı olarak farklı kod yollarını izliyorlarsa, işlevlerinizi ayırın.
 
 **Kötü:**
 
@@ -694,16 +695,16 @@ function createFile(name: string) {
 
 **[⬆ en yukarı](#içindekiler)**
 
-### Avoid Side Effects (part 1)
+### Yan etkilerden kaçınma (part 1)
 
-A function produces a side effect if it does anything other than take a value in and return another value or values.
-A side effect could be writing to a file, modifying some global variable, or accidentally wiring all your money to a stranger.  
+Bir işlev, bir değer almaktan ve başka bir değer veya değerler döndürmekten başka bir şey yaparsa, bir yan etki üretir.
+Bir yan etki, bir dosyaya yazmak, bazı genel değişkenleri değiştirmek veya yanlışlıkla tüm paranızı bir yabancıya havale etmek olabilir.
 
-Now, you do need to have side effects in a program on occasion. Like the previous example, you might need to write to a file.
-What you want to do is to centralize where you are doing this. Don't have several functions and classes that write to a particular file.
-Have one service that does it. One and only one.  
+Şimdi, ara sıra bir programda yan etkilere sahip olmanız gerekiyor. Önceki örnekte olduğu gibi, bir dosyaya yazmanız gerekebilir.
+Yapmak istediğiniz şey, bunu yaptığınız yeri merkezileştirmek. Belirli bir dosyaya yazan çeşitli işlevlere ve sınıflara sahip olmayın.
+Bunu yapan bir servisiniz olsun. Bir ve sadece bir.
 
-The main point is to avoid common pitfalls like sharing state between objects without any structure, using mutable data types that can be written to by anything, and not centralizing where your side effects occur. If you can do this, you will be happier than the vast majority of other programmers.
+Ana nokta, herhangi bir yapıya sahip olmayan nesneler arasında durumu paylaşmak, herhangi bir şey tarafından yazılabilen değişken veri türleri kullanmak ve yan etkilerin meydana geldiği yeri merkezileştirmemek gibi yaygın tuzaklardan kaçınmaktır. Bunu yapabilirseniz, diğer programcıların büyük çoğunluğundan daha mutlu olacaksınız.
 
 **Kötü:**
 
@@ -736,21 +737,21 @@ console.log(name);
 
 **[⬆ en yukarı](#içindekiler)**
 
-### Avoid Side Effects (part 2)
+### Yan etkilerden kaçınma (part 2)
 
-Browsers and Node.js process only JavaScript, therefore any TypeScript code has to be compiled before running or debugging.  In JavaScript, some values are unchangeable (immutable) and some are changeable (mutable). Objects and arrays are two kinds of mutable values so it's important to handle them carefully when they're passed as parameters to a function. A JavaScript function can change an object's properties or alter the contents of an array which could easily cause bugs elsewhere.
+Tarayıcılar ve Node.js yalnızca JavaScript'i işler, bu nedenle çalıştırmadan veya hata ayıklamadan önce tüm TypeScript kodlarının derlenmesi gerekir. JavaScript'te bazı değerler değiştirilemez (değişmez), bazıları ise değiştirilebilir (değişebilir). Nesneler ve diziler iki tür değiştirilebilir değerdir, bu nedenle bir işleve parametre olarak geçirildiklerinde bunları dikkatli bir şekilde ele almak önemlidir. Bir JavaScript işlevi, bir nesnenin özelliklerini değiştirebilir veya bir dizinin içeriğini değiştirebilir, bu da başka yerlerde kolayca hatalara neden olabilir.
 
-Suppose there's a function that accepts an array parameter representing a shopping cart. If the function makes a change in that shopping cart array - by adding an item to purchase, for example - then any other function that uses that same `cart` array will be affected by this addition. That may be great, however it could also be bad. Let's imagine a bad situation:
+Bir alışveriş sepetini temsil eden bir dizi parametresini kabul eden bir işlev olduğunu varsayalım. İşlev, örneğin satın alınacak bir öğe ekleyerek bu alışveriş sepeti dizisinde bir değişiklik yaparsa, aynı `sepet` dizisini kullanan diğer tüm işlevler bu eklemeden etkilenecektir. Bu harika olabilir, ancak kötü de olabilir. Kötü bir durum düşünelim:
 
-The user clicks the "Purchase" button which calls a `purchase` function that spawns a network request and sends the `cart` array to the server. Because of a bad network connection, the `purchase` function has to keep retrying the request. Now, what if in the meantime the user accidentally clicks an "Add to Cart" button on an item they don't actually want before the network request begins? If that happens and the network request begins, then that purchase function will send the accidentally added item because the `cart` array was modified.
+Kullanıcı, bir ağ isteği oluşturan ve `sepet` dizisini sunucuya gönderen bir `satın alma` işlevini çağıran "Satın Al" düğmesini tıklar. Kötü bir ağ bağlantısı nedeniyle, `satın alma` işlevi isteği yeniden denemeye devam etmelidir. Şimdi, bu arada kullanıcı, ağ talebi başlamadan önce gerçekten istemediği bir öğe üzerinde yanlışlıkla "Sepete Ekle" düğmesini tıklarsa ne olur? Bu olursa ve ağ talebi başlarsa, `sepet` dizisi değiştirildiği için bu satın alma işlevi yanlışlıkla eklenen öğeyi gönderir.
 
-A great solution would be for the `addItemToCart` function to always clone the `cart`, edit it, and return the clone. This would ensure that functions that are still using the old shopping cart wouldn't be affected by the changes.
+`addItemToCart` işlevinin `sepeti` her zaman klonlaması, düzenlemesi ve klonu döndürmesi harika bir çözüm olacaktır. Bu, hala eski alışveriş sepetini kullanan işlevlerin değişikliklerden etkilenmemesini sağlayacaktır.
 
-Two caveats to mention to this approach:
+Bu yaklaşımdan bahsetmek için iki uyarı:
 
-1. There might be cases where you actually want to modify the input object, but when you adopt this programming practice you will find that those cases are pretty rare. Most things can be refactored to have no side effects! (see [pure function](https://en.wikipedia.org/wiki/Pure_function))
+1. Giriş nesnesini gerçekten değiştirmek istediğiniz durumlar olabilir, ancak bu programlama pratiğini benimsediğinizde bu durumların oldukça nadir olduğunu göreceksiniz. Çoğu şey, hiçbir yan etkisi olmayacak şekilde yeniden düzenlenebilir! ([saf fonksiyonlar](https://en.wikipedia.org/wiki/Pure_function))
 
-2. Cloning big objects can be very expensive in terms of performance. Luckily, this isn't a big issue in practice because there are [great libraries](https://github.com/immutable-js/immutable-js) that allow this kind of programming approach to be fast and not as memory intensive as it would be for you to manually clone objects and arrays.
+2.Büyük nesneleri klonlamak, performans açısından çok pahalı olabilir. Neyse ki, pratikte bu büyük bir sorun değil çünkü bu tür programlama yaklaşımının hızlı olmasını ve nesneleri ve dizileri manuel olarak klonlamanız kadar yoğun bellek kullanmamasını sağlayan [harika kitaplıklar](https://github.com/immutable-js/immutable-js) var. 
 
 **Kötü:**
 
@@ -770,9 +771,9 @@ function addItemToCart(cart: CartItem[], item: Item): CartItem[] {
 
 **[⬆ en yukarı](#içindekiler)**
 
-### Don't write to global functions
+### Global fonksiyonlara yazmayın
 
-Polluting globals is a bad practice in JavaScript because you could clash with another library and the user of your API would be none-the-wiser until they get an exception in production. Let's think about an example: what if you wanted to extend JavaScript's native Array method to have a `diff` method that could show the difference between two arrays? You could write your new function to the `Array.prototype`, but it could clash with another library that tried to do the same thing. What if that other library was just using `diff` to find the difference between the first and last elements of an array? This is why it would be much better to just use classes and simply extend the `Array` global.
+Küreselleri kirletmek, JavaScript'te kötü bir uygulamadır çünkü başka bir kitaplıkla çatışabilirsiniz ve API'nizin kullanıcısı, üretimde bir istisna bulana kadar akılsız olur. Bir örnek düşünelim: JavaScript'in yerel Array yöntemini iki dizi arasındaki farkı gösterebilecek bir `diff` yöntemine sahip olacak şekilde genişletmek isteseydiniz ne olurdu? Yeni işlevinizi `Array.prototype a` yazabilirsiniz, ancak aynı şeyi yapmaya çalışan başka bir kitaplıkla çakışabilir. Ya diğer kitaplık, bir dizinin ilk ve son öğeleri arasındaki farkı bulmak için yalnızca `diff` kullanıyorsa? Bu nedenle, yalnızca sınıfları kullanmak ve `Array` genelini genişletmek çok daha iyi olacaktır.
 
 **Kötü:**
 
@@ -804,9 +805,9 @@ class MyArray<T> extends Array<T> {
 
 **[⬆ en yukarı](#içindekiler)**
 
-### Favor functional programming over imperative programming
+### Zorunlu programlama yerine işlevsel programlamayı tercih edin
 
-Favor this style of programming when you can.
+Yapabildiğiniz zaman bu programlama tarzını tercih edin.
 
 **Kötü:**
 
@@ -859,7 +860,7 @@ const totalOutput = contributions
 
 **[⬆ en yukarı](#içindekiler)**
 
-### Encapsulate conditionals
+### Koşullu ifadeleri kapsülleyin
 
 **Kötü:**
 
@@ -883,7 +884,7 @@ if (canActivateService(subscription, account)) {
 
 **[⬆ en yukarı](#içindekiler)**
 
-### Avoid negative conditionals
+### Olumsuz şart koşullarından kaçının
 
 **Kötü:**
 
@@ -911,9 +912,9 @@ if (!isEmailUsed(email)) {
 
 **[⬆ en yukarı](#içindekiler)**
 
-### Avoid conditionals
+### Koşullu ifadelerden kaçının
 
-This seems like an impossible task. Upon first hearing this, most people say, "how am I supposed to do anything without an `if` statement?" The answer is that you can use polymorphism to achieve the same task in many cases. The second question is usually, "well that's great but why would I want to do that?" The answer is a previous clean code concept we learned: a function should only do one thing. When you have classes and functions that have `if` statements, you are telling your user that your function does more than one thing. Remember, just do one thing.
+Bu imkansız bir görev gibi görünüyor. Çoğu insan bunu ilk duyduğunda, `if` ifadesi olmadan herhangi bir şeyi nasıl yapacağım? Cevap, birçok durumda aynı görevi gerçekleştirmek için polimorfizmi kullanabilmenizdir. İkinci soru genellikle, "bu harika ama neden bunu yapmak isteyeyim?" Cevap, daha önce öğrendiğimiz bir temiz kod kavramıdır: bir fonksiyon sadece tek bir şey yapmalıdır. `if` ifadeleri içeren sınıflara ve işlevlere sahip olduğunuzda, kullanıcınıza işlevinizin birden fazla şey yaptığını söylüyorsunuz. Unutma, sadece bir şey yap.
 
 **Kötü:**
 
@@ -976,11 +977,11 @@ class Cessna extends Airplane {
 
 **[⬆ en yukarı](#içindekiler)**
 
-### Avoid type checking
+### Tip kontrolünden kaçının
 
-TypeScript is a strict syntactical superset of JavaScript and adds optional static type checking to the language.
-Always prefer to specify types of variables, parameters and return values to leverage the full power of TypeScript features.
-It makes refactoring more easier.
+TypeScript, JavaScript'in katı bir sözdizimsel üst kümesidir ve dile isteğe bağlı statik tür denetimi ekler.
+TypeScript özelliklerinin tam gücünden yararlanmak için her zaman değişken türlerini, parametreleri ve dönüş değerlerini belirtmeyi tercih edin.
+Yeniden düzenlemeyi daha kolay hale getirir.
 
 **Kötü:**
 
@@ -1006,15 +1007,14 @@ function travelToTexas(vehicle: Vehicle) {
 
 **[⬆ en yukarı](#içindekiler)**
 
-### Don't over-optimize
+### Aşırı optimize etmeyin
 
-Modern browsers do a lot of optimization under-the-hood at runtime. A lot of times, if you are optimizing then you are just wasting your time. There are good [resources](https://github.com/petkaantonov/bluebird/wiki/Optimization-killers) for seeing where optimization is lacking. Target those in the meantime, until they are fixed if they can be.
+Modern tarayıcılar, çalışma zamanında pek çok optimizasyonu arka planda gerçekleştirir. Çoğu zaman, optimizasyon yapıyorsanız, sadece zamanınızı boşa harcıyorsunuz demektir.Optimizasyonun nerede eksik olduğunu görmek için iyi [kaynaklar](https://github.com/petkaantonov/bluebird/wiki/Optimization-killers) var. Düzeltilebilirlerse düzeltilene kadar aradakileri hedefleyin.
 
 **Kötü:**
 
 ```ts
-// On old browsers, each iteration with uncached `list.length` would be costly
-// because of `list.length` recomputation. In modern browsers, this is optimized.
+//Eski tarayıcılarda, önbelleğe alınmamış "list.length" içeren her yineleme, "list.length" yeniden hesaplaması nedeniyle maliyetli olurdu. Modern tarayıcılarda bu optimize edilmiştir.
 for (let i = 0, len = list.length; i < len; i++) {
   // ...
 }
@@ -1030,10 +1030,10 @@ for (let i = 0; i < list.length; i++) {
 
 **[⬆ en yukarı](#içindekiler)**
 
-### Remove dead code
+### Ölü kodu kaldır
 
-Dead code is just as bad as duplicate code. There's no reason to keep it in your codebase.
-If it's not being called, get rid of it! It will still be safe in your version history if you still need it.
+Ölü kod, yinelenen kod kadar kötüdür. Kod tabanınızda tutmanız için hiçbir sebep yok.
+Eğer aranmıyorsa, ondan kurtulun! Hâlâ ihtiyacınız varsa sürüm geçmişinizde güvende olacaktır.
 
 **Kötü:**
 
@@ -1063,16 +1063,15 @@ inventoryTracker('apples', req, 'www.inventory-awesome.io');
 
 **[⬆ en yukarı](#içindekiler)**
 
-### Use iterators and generators
+### Yineleyicileri ve oluşturucuları kullanın
 
-Use generators and iterables when working with collections of data used like a stream.  
-There are some good reasons:
+Bir akış gibi kullanılan veri koleksiyonlarıyla çalışırken oluşturucuları ve yinelenebilirleri kullanın.
+Bunun bazı iyi nedenleri var:
 
-- decouples the callee from the generator implementation in a sense that callee decides how many
-items to access
-- lazy execution, items are streamed on-demand
-- built-in support for iterating items using the `for-of` syntax
-- iterables allow implementing optimized iterator patterns
+- Aranan kişinin kaç öğeye erişeceğine karar vermesi anlamında, aranan kişiyi oluşturucu uygulamasından ayırır.
+- tembel yürütme, öğeler talep üzerine yayınlanır
+- `for-of` sözdizimini kullanarak öğeleri yinelemek için yerleşik destek
+- yinelemeler, optimize edilmiş yineleyici modellerinin uygulanmasına izin verir
 
 **Kötü:**
 
@@ -1122,10 +1121,7 @@ function print(n: number) {
 // Print first 10 Fibonacci numbers.
 print(10);
 ```
-
-There are libraries that allow working with iterables in a similar way as with native arrays, by
-chaining methods like `map`, `slice`, `forEach` etc. See [itiriri](https://www.npmjs.com/package/itiriri) for
-an example of advanced manipulation with iterables (or [itiriri-async](https://www.npmjs.com/package/itiriri-async) for manipulation of async iterables).
+Yerel dizilerde olduğu gibi `map`, `slice`, `forEach` vb. gibi zincirleme yöntemleri yinelemelerle çalışmaya izin veren kitaplıklar vardır.[itiriri](https://www.npmjs.com/package/itiriri) [itiriri-async](https://www.npmjs.com/package/itiriri-async).
 
 ```ts
 import itiriri from 'itiriri';
