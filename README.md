@@ -1147,15 +1147,15 @@ itiriri(fibonacci())
 ### Getter ve setter metotlarını kullanın
 
 TypeScript getter/setter kullanımını destekler.
-Nesnenin verisini getters ve setters
-Using getters and setters to access data from objects that encapsulate behavior could be better than simply looking for a property on an object.
-"Why?" you might ask. Well, here's a list of reasons:
+Nesnenin içindeki özellikten verisini  getters ve setters ile kullanmak sınıfı koruma altına almak  için daha iyi olabilir.
 
-- When you want to do more beyond getting an object property, you don't have to look up and change every accessor in your codebase.
-- Makes adding validation simple when doing a `set`.
-- Encapsulates the internal representation.
-- Easy to add logging and error handling when getting and setting.
-- You can lazy load your object's properties, let's say getting it from a server.
+Bunun sebepleri şunlardır:
+
+- Nesnenin özelliğini getirirken başka işlemler yapmak isterseniz bunu her eriştiğiniz yerde yapmanıza gerek kalmaz.
+- Validasyon ekleme işlemini basitleştirir.
+- Sınıfın koruma altına alır.
+- Loglama ve hatayı giderme işlemlerini kolaylaştırır.
+- Özellikleri tembel yükleme ile alabilirsiniz örn serverdan çekme gibi.
 
 **Kötü:**
 
@@ -1209,9 +1209,9 @@ account.balance = 100;
 
 **[⬆ en yukarı](#içindekiler)**
 
-### Make objects have private/protected members
+### NEsnelerin üyelerini private/protected anahtar kelimeleri ile oluşturun.
 
-TypeScript supports `public` *(default)*, `protected` and `private` accessors on class members.  
+TypeScript `public` *(default)*, `protected` ve `private` erişim anahtar kelimelerini destekler.
 
 **Kötü:**
 
@@ -1252,7 +1252,7 @@ class Circle {
 
 **[⬆ en yukarı](#içindekiler)**
 
-### Prefer immutability
+### Değiştirilemezliği tercih edin. 
 
 TypeScript's type system allows you to mark individual properties on an interface/class as *readonly*. This allows you to work in a functional way (an unexpected mutation is bad).  
 For more advanced scenarios there is a built-in type `Readonly` that takes a type `T` and marks all of its properties as readonly using mapped types (see [mapped types](https://www.typescriptlang.org/docs/handbook/advanced-types.html#mapped-types)).
