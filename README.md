@@ -1144,9 +1144,10 @@ itiriri(fibonacci())
 
 ## Nesneler ve Veri Yapıları
 
-### Use getters and setters
+### Getter ve setter metotlarını kullanın
 
-TypeScript supports getter/setter syntax.
+TypeScript getter/setter kullanımını destekler.
+Nesnenin verisini getters ve setters
 Using getters and setters to access data from objects that encapsulate behavior could be better than simply looking for a property on an object.
 "Why?" you might ask. Well, here's a list of reasons:
 
